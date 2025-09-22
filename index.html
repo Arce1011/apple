@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apple: Crise e Renascimento nos Anos 90</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -12,29 +13,46 @@
         @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap');
 
+        :root {
+            --mouse-x: 50%;
+            --mouse-y: 50%;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-color: #1a1a2e;
+            background-image: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            perspective: 1000px;
+            perspective: 1500px;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(102, 126, 234, 0.2), transparent 40%);
+            z-index: 0;
+            transition: background 0.1s ease;
         }
 
         .slide {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
             position: absolute;
             width: 90%;
-            max-width: 900px;
-            height: 80vh;
-            max-height: 600px;
+            max-width: 950px;
+            height: 85vh;
+            max-height: 620px;
             transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
             opacity: 0;
             transform-style: preserve-3d;
@@ -42,7 +60,24 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            border: none;
         }
+
+        /* Gradient Border Fix */
+        .slide::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 24px; 
+            padding: 1px; 
+            background: linear-gradient(to bottom left, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.1));
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box,
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+                    mask-composite: exclude;
+        }
+
 
         .slide.active {
             opacity: 1;
@@ -56,7 +91,7 @@
         }
         
         .slide-content {
-            padding: 2rem 3rem;
+            padding: 2.5rem 4rem;
         }
         
         .nav-button {
@@ -64,7 +99,7 @@
             top: 50%;
             transform: translateY(-50%);
             z-index: 20;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border-radius: 50%;
             width: 50px;
@@ -74,15 +109,15 @@
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         .nav-button:hover {
-            background: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.3);
             transform: translateY(-50%) scale(1.1);
         }
 
-        #prevBtn { left: 2vw; }
-        #nextBtn { right: 2vw; }
+        #prevBtn { left: 3vw; }
+        #nextBtn { right: 3vw; }
 
         #slide-counter {
             position: fixed;
@@ -98,14 +133,19 @@
         }
 
         h1, h2, h3 {
-            text-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+            text-shadow: 0px 2px 5px rgba(0,0,0,0.25);
         }
         
         ul li {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 8px 12px;
-            border-radius: 8px;
-            margin-bottom: 8px;
+            background: transparent;
+            padding: 0;
+            margin-bottom: 0.75rem;
+        }
+
+        .li-box {
+             background: rgba(255, 255, 255, 0.1);
+             padding: 8px 12px;
+             border-radius: 8px;
         }
         
         /* Slide 1 Dynamics */
@@ -124,17 +164,17 @@
 
         .slide-1-bg {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            overflow: hidden; border-radius: 20px; z-index: 0;
+            overflow: hidden; border-radius: 24px; z-index: -1;
         }
 
         .orb {
             position: absolute; border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
+            background: radial-gradient(circle, rgba(124, 91, 238, 0.2) 0%, rgba(124, 91, 238, 0) 70%);
             animation: float 20s infinite ease-in-out;
         }
-        .orb:nth-child(1) { width: 200px; height: 200px; top: 10%; left: 15%; animation-duration: 25s; animation-delay: -5s; }
-        .orb:nth-child(2) { width: 300px; height: 300px; top: 60%; right: 5%; animation-duration: 30s; animation-delay: -2s; }
-        .orb:nth-child(3) { width: 150px; height: 150px; bottom: 5%; left: 40%; animation-duration: 18s; animation-delay: 0s; }
+        .orb:nth-child(1) { width: 300px; height: 300px; top: 10%; left: 15%; animation-duration: 25s; animation-delay: -5s; }
+        .orb:nth-child(2) { width: 400px; height: 400px; top: 60%; right: 5%; animation-duration: 30s; animation-delay: -2s; }
+        .orb:nth-child(3) { width: 250px; height: 250px; bottom: 5%; left: 40%; animation-duration: 18s; animation-delay: 0s; }
 
         @keyframes float {
             0% { transform: translateY(0px) translateX(0px); }
@@ -148,33 +188,36 @@
         @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* New iMac Reveal Style */
+        /* iMac Reveal Style */
         .slide-imac {
-            background: rgba(240, 245, 255, 0.6);
-            border-color: rgba(255, 255, 255, 0.7);
+            background: rgba(240, 245, 255, 0.7);
+        }
+         .slide-imac::before {
+            background: linear-gradient(to bottom left, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.3));
         }
         .slide-imac .slide-content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 2.5rem;
             align-items: center;
-            padding: 2rem 4rem;
+            padding: 2.5rem 4.5rem;
         }
         .slide-imac h2 {
             font-family: 'EB Garamond', serif;
-            font-size: 7rem;
+            font-size: 8rem;
             font-weight: 800;
             line-height: 1;
             color: #2c3e50;
             text-shadow: none;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             text-align: left;
         }
         .slide-imac p, .slide-imac li, .slide-imac strong {
             font-family: 'Inter', sans-serif;
             color: #34495e;
             text-shadow: none;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
+            line-height: 1.6;
             background: transparent;
         }
         .slide-imac ul {
@@ -184,14 +227,16 @@
         }
         .slide-imac li {
             padding: 0;
-            margin-bottom: 0.75rem;
+            margin-bottom: 1rem;
             background: none;
         }
         .slide-imac strong {
             font-weight: 700;
         }
         .slide-imac img {
-             filter: drop-shadow(0 20px 25px rgba(0,0,0,0.2));
+             filter: drop-shadow(0 20px 30px rgba(0,0,0,0.25));
+             max-width: 100%;
+             height: auto;
         }
 
     </style>
@@ -208,19 +253,19 @@
             </div>
             <div class="slide-content text-center relative z-10">
                 <h1 class="text-5xl md:text-6xl font-extrabold mb-4 animated-gradient-text slide-1-title">Apple: Crise e Renascimento nos Anos 90</h1>
-                <p class="text-xl md:text-2xl opacity-80 slide-1-subtitle">A Queda e a Volta por Cima de um Ícone da Tecnologia</p>
+                <p class="text-xl md:text-2xl opacity-90 slide-1-subtitle">A Queda e a Volta por Cima de um Ícone da Tecnologia</p>
             </div>
         </div>
 
         <!-- Slide 2: Parte I - Contexto e Declínio -->
         <div class="slide">
             <div class="slide-content">
-                <h2 class="text-3xl font-bold mb-4">Parte I: O Brilho se Apaga (1985-1996)</h2>
-                <p class="text-lg mb-4">No final dos anos 80, a Apple era um ícone. Em meados dos anos 90, estava à beira da falência.</p>
-                <ul class="list-none space-y-3 text-lg">
-                    <li><span class="font-bold">Causa:</span> A empresa foi perdendo sua identidade aos poucos.</li>
-                    <li><span class="font-bold">Aceleradores:</span> Lideranças sem a mesma visão e falha em se adaptar ao mercado.</li>
-                    <li><span class="font-bold">O Vazio Pós-Jobs:</span> A saída de Steve Jobs em 1985 deixou um vazio de liderança que ninguém conseguiu preencher.</li>
+                <h2 class="text-3xl font-bold mb-6">Parte I: O Brilho se Apaga (1985-1996)</h2>
+                <p class="text-lg mb-6">No final dos anos 80, a Apple era um ícone. Em meados dos anos 90, estava à beira da falência.</p>
+                <ul class="list-none space-y-4 text-lg">
+                    <li class="li-box"><span class="font-bold">Causa:</span> A empresa foi perdendo sua identidade aos poucos.</li>
+                    <li class="li-box"><span class="font-bold">Aceleradores:</span> Lideranças sem a mesma visão e falha em se adaptar ao mercado.</li>
+                    <li class="li-box"><span class="font-bold">O Vazio Pós-Jobs:</span> A saída de Steve Jobs em 1985 deixou um vazio de liderança que ninguém conseguiu preencher.</li>
                 </ul>
             </div>
         </div>
@@ -228,49 +273,50 @@
         <!-- Slide 3: Lideranças Desalinhadas -->
         <div class="slide">
             <div class="slide-content">
-                <h2 class="text-3xl font-bold mb-6">Lideranças Sem a Mesma Visão</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-                    <div class="p-4 bg-white/10 rounded-lg">
+                <h2 class="text-3xl font-bold mb-8">Lideranças Sem a Mesma Visão</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <div class="p-5 bg-white/5 rounded-lg">
                         <h3 class="font-bold text-xl">John Sculley</h3>
-                        <p class="text-sm">(1983-1993)</p>
-                        <p class="mt-2 text-sm">Focado em marketing e volume, entrou em conflito com Jobs. Lançou produtos que falharam, como o Newton, e os lucros despencaram.</p>
+                        <p class="text-sm opacity-70">(1983-1993)</p>
+                        <p class="mt-3 text-sm">Focado em marketing e volume, entrou em conflito com Jobs. Lançou produtos que falharam, como o Newton, e os lucros despencaram.</p>
                     </div>
-                    <div class="p-4 bg-white/10 rounded-lg">
+                    <div class="p-5 bg-white/5 rounded-lg">
                         <h3 class="font-bold text-xl">Michael Spindler</h3>
-                        <p class="text-sm">(1993-1996)</p>
-                        <p class="mt-2 text-sm">Acelerou a queda com a desastrosa estratégia de "clones" do Mac, que prejudicou as próprias vendas da Apple.</p>
+                        <p class="text-sm opacity-70">(1993-1996)</p>
+                        <p class="mt-3 text-sm">Acelerou a queda com a desastrosa estratégia de "clones" do Mac, que prejudicou as próprias vendas da Apple.</p>
                     </div>
-                    <div class="p-4 bg-white/10 rounded-lg">
+                    <div class="p-5 bg-white/5 rounded-lg">
                         <h3 class="font-bold text-xl">Gil Amelio</h3>
-                        <p class="text-sm">(1996-1997)</p>
-                        <p class="mt-2 text-sm">Não conseguiu salvar a empresa. Sua grande jogada foi comprar a NeXT, o que trouxe Jobs de volta e, ironicamente, causou sua própria saída.</p>
+                        <p class="text-sm opacity-70">(1996-1997)</p>
+                        <p class="mt-3 text-sm">Não conseguiu salvar a empresa. Sua grande jogada foi comprar a NeXT, o que trouxe Jobs de volta e, ironicamente, causou sua própria saída.</p>
                     </div>
                 </div>
             </div>
         </div>
         
-        <!-- Slide 4: A Ascensão da Wintel -->
+        <!-- Slide 4: A Queda de um Líder -->
         <div class="slide">
-            <div class="slide-content">
-                <h2 class="text-3xl font-bold mb-4">A Queda de um Líder de Mercado</h2>
-                 <h3 class="text-xl opacity-80 mb-6">Perdendo Espaço para a "Wintel"</h3>
-                <p class="text-lg mb-4">Enquanto a Apple vivia crises internas, a aliança entre Microsoft Windows e Intel dominava o mercado de PCs.</p>
-                 <ul class="list-none space-y-3 text-lg">
-                    <li>A dupla "Wintel" criou um mercado focado em preços baixos.</li>
-                    <li>O modelo de negócios fechado da Apple não conseguia competir.</li>
-                    <li class="font-bold text-2xl text-center mt-6 p-4 bg-red-500/30 rounded-lg">A participação de mercado da Apple despencou para apenas 3% nos anos 90.</li>
-                </ul>
+            <div class="slide-content grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="text-content">
+                    <h2 class="text-3xl font-bold mb-4">A Queda de um Líder</h2>
+                    <h3 class="text-xl opacity-80 mb-6">Perdendo Espaço para a "Wintel"</h3>
+                    <p class="text-base leading-relaxed">Enquanto a Apple enfrentava crises internas, a aliança Microsoft/Intel dominava o mercado com PCs de baixo custo.</p>
+                    <p class="mt-4 text-base leading-relaxed">O modelo de negócio fechado da Apple não conseguia competir, resultando numa queda dramática da sua participação no mercado.</p>
+                </div>
+                <div class="chart-container relative h-64 md:h-80">
+                    <canvas id="marketShareChart"></canvas>
+                </div>
             </div>
         </div>
 
         <!-- Slide 5: Parte II - O Diagnóstico -->
         <div class="slide">
             <div class="slide-content">
-                <h2 class="text-3xl font-bold mb-4">Parte II: Analisando uma Empresa em Crise</h2>
-                <p class="text-lg mb-4">A volta de Steve Jobs em 1997 revelou uma empresa paralisada pela própria complexidade.</p>
-                <div class="bg-white/10 p-6 rounded-lg">
-                    <h3 class="font-bold text-xl mb-2">O Diagnóstico Direto: Perda Total de Foco</h3>
-                    <ul class="list-disc list-inside space-y-2">
+                <h2 class="text-3xl font-bold mb-6">Parte II: Analisando uma Empresa em Crise</h2>
+                <p class="text-lg mb-6">A volta de Steve Jobs em 1997 revelou uma empresa paralisada pela própria complexidade.</p>
+                <div class="bg-white/5 p-6 rounded-lg">
+                    <h3 class="font-bold text-xl mb-4">O Diagnóstico Direto: Perda Total de Foco</h3>
+                    <ul class="list-disc list-inside space-y-3">
                         <li><span class="font-semibold">Produtos confusos:</span> Dezenas de modelos com nomes complicados (Quadra, Centris, LC, Performa).</li>
                         <li><span class="font-semibold">Operação insustentável:</span> Problemas de estoque e conflitos entre os canais de venda.</li>
                         <li><span class="font-semibold">Marca enfraquecida:</span> A Apple tentou ser tudo para todos e acabou não sendo especial para ninguém.</li>
@@ -282,50 +328,65 @@
         <!-- Slide 6: Estudo de Caso: Performa -->
         <div class="slide">
             <div class="slide-content">
-                <h2 class="text-3xl font-bold mb-4">Estudo de Caso: O Macintosh Performa</h2>
+                <h2 class="text-3xl font-bold mb-4">Estudo de Caso: Macintosh Performa</h2>
                 <h3 class="text-xl opacity-80 mb-6">O Exemplo da Confusão (1992-1997)</h3>
-                <p class="mb-4">A linha Performa é o exemplo perfeito da falta de estratégia da Apple:</p>
-                <ul class="list-none space-y-3">
-                    <li><span class="font-bold">64 Modelos Diferentes:</span> A maioria era apenas uma nova versão de computadores antigos, com pequenas mudanças.</li>
-                    <li><span class="font-bold">Confusão para o Consumidor:</span> Era impossível para os clientes compararem e entenderem os produtos.</li>
-                    <li><span class="font-bold">Prejuízo nas Vendas:</span> A linha de baixo custo fez a Apple perder dinheiro, já que canibalizava produtos mais caros.</li>
+                <p class="mb-6">A linha Performa é o exemplo perfeito da falta de estratégia da Apple:</p>
+                <ul class="list-none space-y-4">
+                    <li class="li-box"><span class="font-bold">64 Modelos Diferentes:</span> A maioria era apenas uma nova versão de computadores antigos, com pequenas mudanças.</li>
+                    <li class="li-box"><span class="font-bold">Confusão para o Consumidor:</span> Era impossível para os clientes compararem e entenderem os produtos.</li>
+                    <li class="li-box"><span class="font-bold">Prejuízo nas Vendas:</span> A linha de baixo custo fez a Apple perder dinheiro, já que canibalizava produtos mais caros.</li>
                 </ul>
             </div>
         </div>
         
-        <!-- Slide 7: Parte III - O Regresso -->
+        <!-- Slide 7: Parte III - A Compra da NeXT -->
         <div class="slide">
              <div class="slide-content">
-                <h2 class="text-3xl font-bold mb-4">Parte III: A Volta do Fundador</h2>
-                <p class="text-lg mb-4">A compra da NeXT em 1996 não foi só pela tecnologia; foi o plano que trouxe Steve Jobs de volta.</p>
-                 <div class="bg-white/10 p-6 rounded-lg">
-                    <h3 class="font-bold text-xl mb-2">O Diagnóstico de Jobs: "Isto é uma loucura"</h3>
-                    <p class="mb-3">Ao analisar os produtos, Jobs disse que a empresa não tinha foco e que os produtos eram "lixo".</p>
-                    <p class="font-semibold italic">Ele fez uma pergunta simples à equipe: "Qual produto eu indicaria para um amigo comprar?" O silêncio foi a prova de que a estratégia estava errada.</p>
+                <h2 class="text-3xl font-bold mb-4">Parte III: O Plano de Retorno</h2>
+                <h3 class="text-xl opacity-80 mb-6">A Compra da NeXT (1996)</h3>
+                <p class="text-lg mb-6">Oficialmente, a Apple comprou a NeXT por seu sistema operacional avançado. Na realidade, o verdadeiro valor era outro.</p>
+                 <ul class="list-none space-y-4 text-lg">
+                    <li class="li-box"><span class="font-bold">A Jogada Estratégica:</span> A aquisição trouxe Steve Jobs de volta à empresa que ele fundou, inicialmente como conselheiro.</li>
+                    <li class="li-box"><span class="font-bold">O Cavalo de Troia:</span> O CEO da época, Gil Amelio, pensou que estava comprando tecnologia. Na verdade, estava comprando seu próprio substituto.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 8: O Diagnóstico de Jobs -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2 class="text-3xl font-bold mb-6">O Diagnóstico: "Isto é uma loucura"</h2>
+                <p class="text-lg mb-6">Poucos meses após a compra, Jobs tornou-se CEO interino e fez uma análise brutal da situação:</p>
+                <div class="bg-white/5 p-6 rounded-lg">
+                    <ul class="list-disc list-inside space-y-3">
+                        <li>A empresa não tinha foco algum.</li>
+                        <li>Os produtos eram "lixo", confusos e sem estratégia.</li>
+                        <li class="mt-4 italic">Sua pergunta à equipe resumiu o problema: <span class="font-semibold">"Qual produto eu deveria dizer aos meus amigos para comprar?"</span>. Ninguém soube responder de forma simples.</li>
+                    </ul>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 8: A Filosofia de "Dizer Não" -->
+        <!-- Slide 9: A Filosofia de "Dizer Não" -->
         <div class="slide">
             <div class="slide-content text-center">
-                <h2 class="text-4xl font-bold mb-8">A Filosofia de "Dizer Não"</h2>
-                <blockquote class="text-3xl italic font-light opacity-90 border-l-4 border-white/50 pl-6">
+                <h2 class="text-3xl font-bold mb-4">A Nova Filosofia na WWDC 1997</h2>
+                <blockquote class="text-4xl italic font-light opacity-90 border-l-4 border-white/30 pl-8 my-10 mx-auto max-w-2xl">
                     "Foco é dizer não."
                 </blockquote>
-                <p class="mt-4 text-2xl font-semibold">- Steve Jobs, 1997</p>
-                <p class="mt-8 text-lg max-w-2xl mx-auto">A recuperação da Apple não era sobre o que fazer, mas sobre o que <span class="font-bold">parar de fazer</span>. Ele precisava cortar projetos para focar os poucos recursos da empresa em criar produtos excelentes.</p>
+                <p class="mt-4 text-xl font-semibold">- Steve Jobs</p>
+                <p class="mt-8 text-lg max-w-3xl mx-auto leading-relaxed">A recuperação da Apple não era sobre o que fazer, mas sobre o que <span class="font-bold">parar de fazer</span>. Jobs explicou que era preciso eliminar projetos para concentrar os poucos recursos da empresa na criação de produtos realmente excelentes.</p>
             </div>
         </div>
         
-        <!-- Slide 9: Parte IV - A Estratégia da Subtração -->
+        <!-- Slide 10: Parte IV - A Estratégia da Subtração -->
         <div class="slide">
              <div class="slide-content">
-                <h2 class="text-3xl font-bold mb-4">Parte IV: A Estratégia de Simplificar</h2>
-                <p class="text-lg mb-4">Com o diagnóstico feito, Jobs implementou uma estratégia de uma simplicidade radical.</p>
-                 <div class="bg-white/10 p-6 rounded-lg">
-                     <h3 class="font-bold text-xl mb-2">Dois Pilares:</h3>
-                     <ol class="list-decimal list-inside space-y-3 text-lg">
+                <h2 class="text-3xl font-bold mb-6">Parte IV: A Estratégia de Simplificar</h2>
+                <p class="text-lg mb-6">Com o diagnóstico feito, Jobs implementou uma estratégia de uma simplicidade radical.</p>
+                 <div class="bg-white/5 p-6 rounded-lg">
+                     <h3 class="font-bold text-xl mb-4">Dois Pilares:</h3>
+                     <ol class="list-decimal list-inside space-y-4 text-lg">
                         <li><span class="font-semibold">Simplificação Radical dos Produtos:</span> Guiada pela famosa matriz de produtos.</li>
                         <li><span class="font-semibold">Reconstrução da Alma da Marca:</span> Através da icônica campanha "Think Different".</li>
                      </ol>
@@ -333,84 +394,84 @@
             </div>
         </div>
         
-        <!-- Slide 10: A Matriz de 4 Quadrantes -->
+        <!-- Slide 11: A Matriz de 4 Quadrantes -->
         <div class="slide">
             <div class="slide-content">
                 <h2 class="text-3xl font-bold mb-6 text-center">A Solução: Um Foco em Quatro Produtos</h2>
-                <p class="text-center mb-6">Jobs resumiu toda a estratégia de produtos a um esquema com quatro áreas. A Apple faria apenas um produto excepcional para cada uma.</p>
-                <div class="grid grid-cols-[auto_1fr_1fr] grid-rows-[auto_1fr_1fr] gap-4 text-center text-lg h-80 mx-auto max-w-lg">
+                <p class="text-center mb-8 max-w-2xl mx-auto">Jobs resumiu toda a estratégia de produtos a um esquema com quatro áreas. A Apple faria apenas um produto excepcional para cada uma.</p>
+                <div class="grid grid-cols-[auto_1fr_1fr] grid-rows-[auto_1fr_1fr] gap-x-6 gap-y-4 text-center text-lg h-80 mx-auto max-w-xl">
                     <!-- Empty top-left corner -->
                     <div></div>
                     <!-- Desktop label -->
                     <div class="col-span-2 flex items-center justify-center font-bold text-xl opacity-80 pb-2">Desktop</div>
 
                     <!-- Portátil label -->
-                    <div class="row-span-2 flex items-center justify-center font-bold text-xl opacity-80">
+                    <div class="row-span-2 flex items-center justify-center font-bold text-xl opacity-80 pr-4">
                         <span class="-rotate-90 whitespace-nowrap">Portátil</span>
                     </div>
 
                     <!-- Quadrants -->
-                    <div class="bg-white/20 rounded-lg flex flex-col items-center justify-center p-4 min-h-[120px]">
+                    <div class="bg-white/10 rounded-lg flex flex-col items-center justify-center p-4 min-h-[120px]">
                         <span class="text-sm opacity-70">Consumidor</span>
-                        <p class="font-bold text-xl">iMac</p>
+                        <p class="font-bold text-xl mt-1">iMac</p>
                     </div>
-                    <div class="bg-white/20 rounded-lg flex flex-col items-center justify-center p-4 min-h-[120px]">
+                    <div class="bg-white/10 rounded-lg flex flex-col items-center justify-center p-4 min-h-[120px]">
                         <span class="text-sm opacity-70">Profissional</span>
-                        <p class="font-bold text-xl">Power Mac G3</p>
+                        <p class="font-bold text-xl mt-1">Power Mac G3</p>
                     </div>
 
-                    <div class="bg-white/20 rounded-lg flex flex-col items-center justify-center p-4 min-h-[120px]">
+                    <div class="bg-white/10 rounded-lg flex flex-col items-center justify-center p-4 min-h-[120px]">
                         <span class="text-sm opacity-70">Consumidor</span>
-                        <p class="font-bold text-xl">iBook</p>
+                        <p class="font-bold text-xl mt-1">iBook</p>
                     </div>
-                    <div class="bg-white/20 rounded-lg flex flex-col items-center justify-center p-4 min-h-[120px]">
+                    <div class="bg-white/10 rounded-lg flex flex-col items-center justify-center p-4 min-h-[120px]">
                         <span class="text-sm opacity-70">Profissional</span>
-                        <p class="font-bold text-xl">PowerBook G3</p>
+                        <p class="font-bold text-xl mt-1">PowerBook G3</p>
                     </div>
                 </div>
             </div>
         </div>
         
-        <!-- Slide 11: A Purga e "Think Different" -->
+        <!-- Slide 12: A Purga e "Think Different" -->
         <div class="slide">
             <div class="slide-content">
-                <h2 class="text-3xl font-bold mb-6">Colocando o Plano em Ação</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-white/10 p-4 rounded-lg">
-                        <h3 class="font-bold text-xl mb-2">O Grande Corte de Produtos</h3>
+                <h2 class="text-3xl font-bold mb-8">Colocando o Plano em Ação</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white/5 p-6 rounded-lg">
+                        <h3 class="font-bold text-xl mb-3">O Grande Corte de Produtos</h3>
                         <p>Jobs cortou mais de <span class="font-extrabold text-2xl">70%</span> dos projetos de hardware e software.</p>
-                        <ul class="list-disc list-inside mt-2 text-sm space-y-1">
+                        <ul class="list-disc list-inside mt-3 text-sm space-y-1">
                             <li>Fim da linha Performa</li>
                             <li>Cancelamento do Newton</li>
                             <li>Fim do programa de clones</li>
                         </ul>
                     </div>
-                     <div class="bg-white/10 p-4 rounded-lg">
-                        <h3 class="font-bold text-xl mb-2">"Think Different" (1997)</h3>
+                     <div class="bg-white/5 p-6 rounded-lg">
+                        <h3 class="font-bold text-xl mb-3">"Think Different" (1997)</h3>
                         <p>Uma campanha histórica que não vendia produtos, mas sim <span class="font-extrabold text-2xl">valores</span>.</p>
-                        <p class="mt-2 text-sm">Reconectou a Apple com seu público de criativos e rebeldes, recuperando a lealdade dos fãs antes dos novos produtos chegarem.</p>
+                        <p class="mt-3 text-sm">Reconectou a Apple com seu público de criativos e rebeldes, recuperando a lealdade dos fãs antes dos novos produtos chegarem.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 12: Parte V - Introdução ao iMac -->
+        <!-- Slide 13: Parte V - Introdução ao iMac -->
         <div class="slide">
             <div class="slide-content text-center">
                 <h2 class="text-3xl font-bold mb-4">Parte V: Os Primeiros Resultados do Novo Foco</h2>
-                <p class="text-xl max-w-3xl mx-auto mt-8">
+                <p class="text-xl max-w-3xl mx-auto mt-10 leading-relaxed">
                     A prova da nova estratégia da Apple chegou em 1998. Não na forma de uma caixa bege e sem graça, mas como um objeto vibrante que se tornaria o símbolo do renascimento da empresa.
                 </p>
-                <p class="mt-12 text-4xl font-bold animate-pulse">Vem aí... o iMac.</p>
+                <p class="mt-16 text-4xl font-bold animate-pulse">Vem aí... o iMac.</p>
             </div>
         </div>
 
-        <!-- Slide 13: O iMac G3 - Modern Reveal -->
+        <!-- Slide 14: O iMac G3 - Modern Reveal -->
         <div class="slide slide-imac">
             <div class="slide-content">
                 <div class="text-content">
                     <h2>iMac</h2>
-                    <ul class="space-y-3">
+                    <ul class="space-y-4">
                         <li><strong>Design Radical:</strong> Um "tudo-em-um" translúcido e colorido.</li>
                         <li><strong>Adeus ao Passado:</strong> O primeiro a abandonar o disquete e adotar o USB.</li>
                         <li><strong>Foco na Internet:</strong> O "i" em seu nome significava "Internet".</li>
@@ -423,36 +484,36 @@
         </div>
 
 
-        <!-- Slide 14: A Reviravolta Financeira -->
+        <!-- Slide 15: A Reviravolta Financeira -->
         <div class="slide">
             <div class="slide-content">
-                <h2 class="text-3xl font-bold mb-6">Saindo do Prejuízo</h2>
-                <p class="text-center mb-6">O iMac foi um sucesso de vendas imediato e o impacto nos resultados foi impressionante.</p>
+                <h2 class="text-3xl font-bold mb-8">Saindo do Prejuízo</h2>
+                <p class="text-center mb-8">O iMac foi um sucesso de vendas imediato e o impacto nos resultados foi impressionante.</p>
                 <div class="flex justify-around text-center">
                     <div class="w-1/2 p-4">
                         <p class="text-lg font-semibold">Ano Fiscal 1997</p>
                         <p class="text-5xl font-extrabold text-red-400 mt-2">-$1.04 Bilhão</p>
-                        <p class="text-sm opacity-70">Prejuízo</p>
+                        <p class="text-sm opacity-70 mt-1">Prejuízo</p>
                     </div>
                     <div class="w-1/2 p-4 border-l border-white/20">
                         <p class="text-lg font-semibold">Ano Fiscal 1998</p>
                         <p class="text-5xl font-extrabold text-green-400 mt-2">+$309 Milhões</p>
-                        <p class="text-sm opacity-70">Lucro</p>
+                        <p class="text-sm opacity-70 mt-1">Lucro</p>
                     </div>
                 </div>
-                <p class="text-center mt-6">Com 800 mil iMacs vendidos em cinco meses, a Apple estava oficialmente de volta ao jogo.</p>
+                <p class="text-center mt-8">Com 800 mil iMacs vendidos em cinco meses, a Apple estava oficialmente de volta ao jogo.</p>
             </div>
         </div>
 
-        <!-- Slide 15: Parte VI - A Fundação de um Império -->
+        <!-- Slide 16: Parte VI - A Fundação de um Império -->
         <div class="slide">
             <div class="slide-content">
-                <h2 class="text-3xl font-bold mb-4">Parte VI: As Bases de um Império</h2>
+                <h2 class="text-3xl font-bold mb-6">Parte VI: As Bases de um Império</h2>
                  <h3 class="text-xl opacity-80 mb-6">Impacto e Legado Duradouro</h3>
-                <p class="mb-4">A crise criou os princípios que se tornaram o DNA do sucesso da Apple no século XXI.</p>
-                <div class="bg-white/10 p-6 rounded-lg">
-                    <h3 class="font-bold text-xl mb-2">Os Princípios que Guiaram a Apple</h3>
-                     <ul class="list-disc list-inside space-y-2">
+                <p class="mb-6">A crise criou os princípios que se tornaram o DNA do sucesso da Apple no século XXI.</p>
+                <div class="bg-white/5 p-6 rounded-lg">
+                    <h3 class="font-bold text-xl mb-4">Os Princípios que Guiaram a Apple</h3>
+                     <ul class="list-disc list-inside space-y-3">
                         <li>Foco Extremo</li>
                         <li>Simplicidade em Primeiro Lugar</li>
                         <li>Integração Perfeita entre Hardware e Software</li>
@@ -461,15 +522,23 @@
             </div>
         </div>
         
-        <!-- Slide 16: Conclusão -->
+        <!-- Slide 17: Conclusão -->
         <div class="slide">
             <div class="slide-content text-center">
-                 <h2 class="text-4xl font-bold mb-8">Conclusão: A Crise que Fortaleceu a Apple</h2>
-                 <p class="text-lg max-w-3xl mx-auto mb-6">A experiência de quase falência não foi um acidente na história da Apple; foi o evento que moldou a empresa moderna, forçando-a a voltar às suas raízes.</p>
-                 <blockquote class="text-xl italic font-light opacity-90 border-l-4 border-white/50 pl-6 max-w-2xl mx-auto">
+                 <h2 class="text-4xl font-bold mb-10">Conclusão: A Crise que Fortaleceu a Apple</h2>
+                 <p class="text-lg max-w-3xl mx-auto mb-8 leading-relaxed">A experiência de quase falência não foi um acidente na história da Apple; foi o evento que moldou a empresa moderna, forçando-a a voltar às suas raízes.</p>
+                 <blockquote class="text-xl italic font-light opacity-90 border-l-4 border-white/30 pl-8 max-w-2xl mx-auto">
                     "A lição final é que, em um mundo complexo, a estratégia mais poderosa é ter foco, simplicidade e uma dedicação total à experiência do usuário."
                 </blockquote>
-                <p class="mt-8 text-2xl font-semibold">A volta da Apple não salvou apenas uma empresa; ajudou a reencontrar sua essência.</p>
+                <p class="mt-10 text-2xl font-semibold">A volta da Apple não salvou apenas uma empresa; ajudou a reencontrar sua essência.</p>
+            </div>
+        </div>
+
+        <!-- Slide 18: Fim -->
+        <div class="slide">
+            <div class="slide-content text-center flex flex-col items-center justify-center h-full">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" class="w-24 h-24 mb-8 opacity-90 filter invert" alt="Logo da Apple">
+                 <h2 class="text-5xl font-bold">Obrigado</h2>
             </div>
         </div>
 
@@ -486,56 +555,129 @@
     <div id="slide-counter"></div>
 
     <script>
-        const slides = document.querySelectorAll('.slide');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const slideCounter = document.getElementById('slide-counter');
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const slideCounter = document.getElementById('slide-counter');
+            let currentSlide = 0;
 
-        let currentSlide = 0;
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.classList.remove('active', 'prev');
+                    if (i === index) {
+                        slide.classList.add('active');
+                    } else if (i < index) {
+                        slide.classList.add('prev');
+                    }
+                });
+                updateCounter();
+            }
+            
+            function updateCounter() {
+                slideCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
+            }
 
-        function showSlide(index) {
-            slides.forEach((slide, i) => {
-                slide.classList.remove('active', 'prev');
-                if (i === index) {
-                    slide.classList.add('active');
-                } else if (i < index) {
-                    slide.classList.add('prev');
+            function nextSlide() {
+                if (currentSlide < slides.length - 1) {
+                    currentSlide++;
+                    showSlide(currentSlide);
+                }
+            }
+
+            function prevSlide() {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    showSlide(currentSlide);
+                }
+            }
+
+            nextBtn.addEventListener('click', nextSlide);
+            prevBtn.addEventListener('click', prevSlide);
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') {
+                    nextSlide();
+                } else if (e.key === 'ArrowLeft') {
+                    prevSlide();
                 }
             });
-            updateCounter();
-        }
-        
-        function updateCounter() {
-            slideCounter.textContent = `${currentSlide + 1} / ${slides.length}`;
-        }
 
-        function nextSlide() {
-            if (currentSlide < slides.length - 1) {
-                currentSlide++;
-                showSlide(currentSlide);
-            }
-        }
+            // Dynamic lighting effect
+            document.body.addEventListener('mousemove', e => {
+                const { clientX, clientY } = e;
+                const { innerWidth, innerHeight } = window;
+                document.documentElement.style.setProperty('--mouse-x', `${(clientX / innerWidth) * 100}%`);
+                document.documentElement.style.setProperty('--mouse-y', `${(clientY / innerHeight) * 100}%`);
+            });
 
-        function prevSlide() {
-            if (currentSlide > 0) {
-                currentSlide--;
-                showSlide(currentSlide);
+            // Chart Initialization
+            const ctx = document.getElementById('marketShareChart');
+            if (ctx) {
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['1980', '1985', '1990', '1992', '1994', '1996'],
+                        datasets: [{
+                            label: 'Participação de Mercado (%)',
+                            data: [16, 8, 7.8, 9, 7.5, 2],
+                            borderColor: 'rgba(255, 255, 255, 0.9)',
+                            backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                            borderWidth: 3,
+                            tension: 0.3,
+                            fill: true,
+                            pointBackgroundColor: 'rgba(255, 255, 255, 1)',
+                            pointRadius: 5,
+                            pointHoverRadius: 8,
+                            pointBorderColor: 'rgba(118, 75, 162, 0.8)',
+                            pointBorderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            title: {
+                                display: true,
+                                text: 'Queda da Participação de Mercado da Apple',
+                                color: 'rgba(255, 255, 255, 0.9)',
+                                font: {
+                                    size: 16,
+                                    family: 'Inter, sans-serif'
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return ` ${context.parsed.y}%`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: { color: 'rgba(255, 255, 255, 0.2)' },
+                                ticks: {
+                                    color: 'rgba(255, 255, 255, 0.8)',
+                                    callback: value => value + '%'
+                                }
+                            },
+                            x: {
+                                grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                                ticks: { color: 'rgba(255, 255, 255, 0.8)' }
+                            }
+                        }
+                    }
+                });
             }
-        }
-
-        nextBtn.addEventListener('click', nextSlide);
-        prevBtn.addEventListener('click', prevSlide);
-        
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') {
-                nextSlide();
-            } else if (e.key === 'ArrowLeft') {
-                prevSlide();
-            }
+            
+            // Initialize Slider
+            showSlide(currentSlide);
         });
-
-        // Initialize
-        showSlide(currentSlide);
     </script>
 </body>
 </html>
