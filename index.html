@@ -152,14 +152,30 @@
         .reveal .value-cell.highlight-value {
              color: var(--primary-color);
         }
+
+        /* Logo styles */
+        .presentation-logo {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 120px;
+            z-index: 1000;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
         
     </style>
 </head>
 <body>
     <div class="reveal">
+        <!-- Logo fixa no canto -->
+        <img src="logo.png" alt="SobralFitness Logo" class="presentation-logo">
+
         <div class="slides">
             <!-- Slide de Título -->
             <section data-transition="zoom">
+                <!-- Logo maior no slide de título -->
+                <img src="logo.png" alt="SobralFitness Logo" style="max-width: 250px; margin-bottom: 20px; border: none; background: none; box-shadow: none;">
                 <h1 style="font-weight: 900;">Proposta de Negócio:<br><span class="highlight">SobralFitness</span></h1>
                 <p class="subtitle">Saúde Personalizada em Dom Expedito: Um modelo de negócio de alto impacto para o mercado de Sobral, Ceará.</p>
             </section>
