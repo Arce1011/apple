@@ -45,6 +45,13 @@
             text-align: left;
         }
 
+        /* --- Global Slide Styles & QoL Improvements --- */
+        .slide-content {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
         .reveal h1,
         .reveal h2,
         .reveal h3 {
@@ -53,10 +60,9 @@
         }
         
         .reveal h1 { font-size: 3.5em; }
-        .reveal h2 { font-size: 1.8em; }
-        .reveal h3 { font-size: 1.2em; }
+        .reveal h2 { font-size: 1.8em; margin-bottom: 30px !important; }
+        .reveal h3 { font-size: 1.2em; margin-bottom: 20px !important; }
         .reveal h4 { font-size: 1.0em; text-transform: none; font-weight: 700; color: var(--primary-color); }
-
 
         .reveal .highlight {
             color: var(--primary-color);
@@ -68,11 +74,12 @@
             margin-top: 20px;
         }
 
+        /* --- Glass Card Component --- */
         .glass-card {
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
             border-radius: 15px;
-            padding: 15px;
+            padding: 25px;
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             text-align: left;
@@ -97,10 +104,11 @@
             flex: 1;
         }
 
+        /* --- Utility & Financial Components --- */
         .formula-box {
             font-family: 'Courier New', Courier, monospace;
             background-color: rgba(0, 0, 0, 0.4);
-            padding: 10px;
+            padding: 15px;
             border-radius: 10px;
             border-left: 5px solid var(--primary-color);
             margin: 15px 0;
@@ -116,6 +124,7 @@
             color: var(--primary-color);
         }
         
+        /* Table Polish */
         .reveal table {
             font-size: 0.55em;
             width: 100%;
@@ -124,8 +133,9 @@
         }
         
         .reveal table td, .reveal table th {
-            padding: 5px;
+            padding: 12px 8px;
             border-bottom: 1px solid var(--glass-border);
+            vertical-align: middle;
         }
         
          .reveal table th {
@@ -153,15 +163,65 @@
              color: var(--primary-color);
         }
 
-        /* Logo styles */
+        /* --- Fixed Logo --- */
         .presentation-logo {
             position: fixed;
             bottom: 30px;
             left: 30px;
             width: 120px;
             z-index: 1000;
-            opacity: 0.8;
-            transition: opacity 0.3s ease;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+        .presentation-logo:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        /* --- Title & Final Slide Styles --- */
+        .reveal .slides section.impact-title-slide {
+            text-align: center;
+        }
+        .impact-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .super-title {
+            font-size: 0.8em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--primary-color);
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        .impact-title-slide h1 {
+            font-size: 7em;
+            font-weight: 900;
+            margin: 0;
+            line-height: 1;
+            color: #ffffff;
+            text-shadow: 0 5px 25px rgba(0,0,0,0.5);
+        }
+        .divider {
+            height: 3px;
+            width: 80px;
+            background-color: var(--primary-color);
+            margin: 40px 0;
+            border-radius: 2px;
+        }
+        .slide-meta {
+            font-size: 0.7em;
+            font-weight: 400;
+            letter-spacing: 1px;
+            opacity: 0.7;
+        }
+        .slide-meta span {
+            margin: 0 5px;
         }
         
     </style>
@@ -172,341 +232,384 @@
         <img src="logo.png" alt="SobralFitness Logo" class="presentation-logo">
 
         <div class="slides">
-            <!-- Slide de Título -->
-            <section data-transition="zoom">
-                <!-- Logo maior no slide de título -->
-                <img src="logo.png" alt="SobralFitness Logo" style="max-width: 250px; margin-bottom: 20px; border: none; background: none; box-shadow: none;">
-                <h1 style="font-weight: 900;">Proposta de Negócio:<br><span class="highlight">SobralFitness</span></h1>
-                <p class="subtitle">Saúde Personalizada em Dom Expedito: Um modelo de negócio de alto impacto para o mercado de Sobral, Ceará.</p>
+            <!-- Slide de Título de Impacto -->
+            <section data-transition="zoom-in fade-out" class="impact-title-slide">
+                <div class="impact-content">
+                    <span class="super-title">Proposta de Negócio e Investimento</span>
+                    <h1>SobralFitness</h1>
+                    <div class="divider"></div>
+                    <p class="slide-meta">
+                        <span>Sobral, Ceará</span> &bull; <span>25 de Setembro de 2025</span>
+                    </p>
+                </div>
             </section>
 
             <!-- Parte 1: Introdução e Missão -->
             <section>
-                <h2><span class="highlight">1.</span> Introdução e Missão</h2>
-                <h3>Um Novo Conceito em Saúde Integrada</h3>
-                <div class="flex-container">
-                    <div class="glass-card fragment fade-up">
-                        <h4>Posicionamento</h4>
-                        <p>Gestão de <span class="highlight">saúde e bem-estar</span>, unindo atividade física e nutrição.</p>
-                    </div>
-                    <div class="glass-card fragment fade-up" data-fragment-index="2">
-                        <h4>Estrutura</h4>
-                        <p>Grande porte (<span class="highlight">1.200m²</span>) em localização premium com fluxo de +25 mil pessoas/dia.</p>
-                    </div>
-                    <div class="glass-card fragment fade-up" data-fragment-index="3">
-                        <h4>Diferencial</h4>
-                        <p>Combinação de <span class="highlight">Escala, Qualidade e Serviço Integrado</span> a um preço acessível.</p>
-                    </div>
-                </div>
-            </section>
-            <section>
-                <h2><span class="highlight">1.</span> Introdução e Missão</h2>
-                <h3>Oportunidade de Mercado em Sobral</h3>
-                 <div class="flex-container">
-                    <div class="glass-card">
-                        <p>O mercado de Sobral apresenta uma lacuna entre academias <span class="highlight">low-cost</span> (focadas em volume, com baixo acompanhamento) e academias de <span class="highlight">nicho</span> (menores, com preço mais elevado). A SobralFitness se posiciona para capturar o público que busca uma experiência superior à low-cost, com serviço de qualidade, ambiente premium e preço justo.</p>
-                    </div>
-                     <div class="glass-card fragment">
-                        <h4>Localização Estratégica: Bairro Dom Expedito</h4>
-                        <p>A escolha do bairro é calculada: alto fluxo de veículos, proximidade a centros comerciais, universidades e consultórios, e alta concentração do nosso público-alvo (Classes B e C).</p>
+                <div class="slide-content">
+                    <h2><span class="highlight">1.</span> Introdução e Missão</h2>
+                    <h3>Um Novo Conceito em Saúde Integrada</h3>
+                    <div class="flex-container">
+                        <div class="glass-card fragment fade-up">
+                            <h4>Posicionamento</h4>
+                            <p>Gestão de <span class="highlight">saúde e bem-estar</span>, unindo atividade física e nutrição.</p>
+                        </div>
+                        <div class="glass-card fragment fade-up" data-fragment-index="2">
+                            <h4>Estrutura</h4>
+                            <p>Grande porte (<span class="highlight">1.200m²</span>) em localização premium com fluxo de +25 mil pessoas/dia.</p>
+                        </div>
+                        <div class="glass-card fragment fade-up" data-fragment-index="3">
+                            <h4>Diferencial</h4>
+                            <p>Combinação de <span class="highlight">Escala, Qualidade e Serviço Integrado</span> a um preço acessível.</p>
+                        </div>
                     </div>
                 </div>
             </section>
             <section>
-                <h2><span class="highlight">1.</span> Introdução e Missão</h2>
-                <h3>Nossa Direção Estratégica</h3>
-                <div class="flex-container">
-                    <div class="glass-card fragment fade-left">
-                        <h4>Missão</h4>
-                        <p>Promover uma <span class="highlight">transformação completa</span> na saúde dos nossos clientes através de um acompanhamento integrado, personalizado e baseado em ciência.</p>
+                <div class="slide-content">
+                    <h2><span class="highlight">1.</span> Introdução e Missão</h2>
+                    <h3>Oportunidade de Mercado em Sobral</h3>
+                    <div class="flex-container">
+                        <div class="glass-card">
+                            <p>O mercado de Sobral apresenta uma lacuna entre academias <span class="highlight">low-cost</span> (focadas em volume, com baixo acompanhamento) e academias de <span class="highlight">nicho</span> (menores, com preço mais elevado). A SobralFitness se posiciona para capturar o público que busca uma experiência superior à low-cost, com serviço de qualidade, ambiente premium e preço justo.</p>
+                        </div>
+                        <div class="glass-card fragment">
+                            <h4>Localização Estratégica: Bairro Dom Expedito</h4>
+                            <p>A escolha do bairro é calculada: alto fluxo de veículos, proximidade a centros comerciais, universidades e consultórios, e alta concentração do nosso público-alvo (Classes B e C).</p>
+                        </div>
                     </div>
-                    <div class="glass-card fragment fade-right">
-                        <h4>Visão</h4>
-                        <p>Ser a academia <span class="highlight">referência em Sobral</span> para resultados de saúde mensuráveis e sustentáveis, reconhecida pela excelência.</p>
+                </div>
+            </section>
+            <section>
+                 <div class="slide-content">
+                    <h2><span class="highlight">1.</span> Introdução e Missão</h2>
+                    <h3>Nossa Direção Estratégica</h3>
+                    <div class="flex-container">
+                        <div class="glass-card fragment fade-left">
+                            <h4>Missão</h4>
+                            <p>Promover uma <span class="highlight">transformação completa</span> na saúde dos nossos clientes através de um acompanhamento integrado, personalizado e baseado em ciência.</p>
+                        </div>
+                        <div class="glass-card fragment fade-right">
+                            <h4>Visão</h4>
+                            <p>Ser a academia <span class="highlight">referência em Sobral</span> para resultados de saúde mensuráveis e sustentáveis, reconhecida pela excelência.</p>
+                        </div>
                     </div>
                 </div>
             </section>
             
             <!-- Parte 2: Marketing -->
             <section>
-                <h2><span class="highlight">2.</span> Marketing</h2>
-                <h3>Entendendo o Nosso Cliente</h3>
-                <div class="flex-container">
-                    <div class="glass-card fragment">
-                        <h4>Demografia</h4>
-                         <ul>
-                            <li><span class="highlight">Idade:</span> 35-49 anos</li>
-                            <li><span class="highlight">Renda:</span> Classe C1, C e B</li>
-                            <li><span class="highlight">Comportamento:</span> Valoriza conveniência e busca um "upgrade inteligente".</li>
-                        </ul>
-                    </div>
-                     <div class="glass-card fragment">
-                        <h4>Persona: Carlos e Mariana</h4>
-                         <ul>
-                            <li><span class="highlight">Profissão:</span> Profissionais da região</li>
-                            <li><span class="highlight">"Dores":</span> Frustração com academias lotadas e falta de orientação.</li>
-                            <li><span class="highlight">Disposição a Pagar:</span> R$ 100-140/mês.</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-             <section>
-                <h2><span class="highlight">2.</span> Marketing</h2>
-                <h3>Análise Competitiva</h3>
-                 <div class="flex-container">
-                    <div class="glass-card">
-                        <h4>Concorrentes Diretos (Low-Cost)</h4>
-                        <p><span class="highlight">Smart Fit e Selfit:</span> Foco em preço e volume. Nossa oportunidade está na impessoalidade e baixo acompanhamento deles.</p>
-                    </div>
-                    <div class="glass-card">
-                        <h4>Concorrentes Indiretos (Nicho)</h4>
-                        <p><span class="highlight">Carneiro Gym, Oxxi:</span> Foco em métodos específicos ou aulas. Nossa vantagem é a escala e a integração com nutrição a um preço competitivo.</p>
+                <div class="slide-content">
+                    <h2><span class="highlight">2.</span> Marketing</h2>
+                    <h3>Entendendo o Nosso Cliente</h3>
+                    <div class="flex-container">
+                        <div class="glass-card fragment">
+                            <h4>Demografia</h4>
+                            <ul>
+                                <li><span class="highlight">Idade:</span> 35-49 anos</li>
+                                <li><span class="highlight">Renda:</span> Classe C1, C e B</li>
+                                <li><span class="highlight">Comportamento:</span> Valoriza conveniência e busca um "upgrade inteligente".</li>
+                            </ul>
+                        </div>
+                        <div class="glass-card fragment">
+                            <h4>Persona: Carlos e Mariana</h4>
+                            <ul>
+                                <li><span class="highlight">Profissão:</span> Profissionais da região</li>
+                                <li><span class="highlight">"Dores":</span> Frustração com academias lotadas e falta de orientação.</li>
+                                <li><span class="highlight">Disposição a Pagar:</span> R$ 100-140/mês.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </section>
              <section>
-                <h2><span class="highlight">2.</span> Marketing</h2>
-                <h3>Plano de Ações de Marketing</h3>
-                 <div class="flex-container">
-                    <div class="glass-card fragment">
-                        <h4>Fase 1: Pré-Lançamento</h4>
-                        <ul>
-                            <li>Criação de expectativa nas redes sociais.</li>
-                            <li>Landing page para captura de leads.</li>
-                            <li>Oferta exclusiva "Plano Fundador".</li>
-                        </ul>
+                <div class="slide-content">
+                    <h2><span class="highlight">2.</span> Marketing</h2>
+                    <h3>Análise Competitiva</h3>
+                    <div class="flex-container">
+                        <div class="glass-card">
+                            <h4>Concorrentes Diretos (Low-Cost)</h4>
+                            <p><span class="highlight">Smart Fit e Selfit:</span> Foco em preço e volume. Nossa oportunidade está na impessoalidade e baixo acompanhamento deles.</p>
+                        </div>
+                        <div class="glass-card">
+                            <h4>Concorrentes Indiretos (Nicho)</h4>
+                            <p><span class="highlight">Carneiro Gym, Oxxi:</span> Foco em métodos específicos ou aulas. Nossa vantagem é a escala e a integração com nutrição a um preço competitivo.</p>
+                        </div>
                     </div>
-                    <div class="glass-card fragment">
-                        <h4>Fase 2: Inauguração</h4>
-                         <ul>
-                            <li>Evento de lançamento aberto à comunidade.</li>
-                            <li>Parceria com influenciadores locais.</li>
-                            <li>Marketing local (flyers, rádio).</li>
-                        </ul>
-                    </div>
-                    <div class="glass-card fragment">
-                        <h4>Fase 3: Pós-Lançamento</h4>
-                         <ul>
-                            <li>Coleta de depoimentos para prova social.</li>
-                            <li>Programa de indicação "Membro Indica".</li>
-                            <li>Marketing de conteúdo contínuo.</li>
-                        </ul>
+                </div>
+            </section>
+             <section>
+                <div class="slide-content">
+                    <h2><span class="highlight">2.</span> Marketing</h2>
+                    <h3>Plano de Ações de Marketing</h3>
+                    <div class="flex-container">
+                        <div class="glass-card fragment">
+                            <h4>Fase 1: Pré-Lançamento</h4>
+                            <ul>
+                                <li>Criação de expectativa nas redes sociais.</li>
+                                <li>Landing page para captura de leads.</li>
+                                <li>Oferta exclusiva "Plano Fundador".</li>
+                            </ul>
+                        </div>
+                        <div class="glass-card fragment">
+                            <h4>Fase 2: Inauguração</h4>
+                            <ul>
+                                <li>Evento de lançamento aberto à comunidade.</li>
+                                <li>Parceria com influenciadores locais.</li>
+                                <li>Marketing local (flyers, rádio).</li>
+                            </ul>
+                        </div>
+                        <div class="glass-card fragment">
+                            <h4>Fase 3: Pós-Lançamento</h4>
+                            <ul>
+                                <li>Coleta de depoimentos para prova social.</li>
+                                <li>Programa de indicação "Membro Indica".</li>
+                                <li>Marketing de conteúdo contínuo.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </section>
 
             <!-- Parte 3: Financeiro I -->
             <section>
-                <h2><span class="highlight">3.</span> Financeiro (Parte I)</h2>
-                <h3>CAPEX: Investimento Inicial Detalhado</h3>
-                <div class="glass-card">
-                    <table>
-                        <tr class="fragment"><td>Reforma e Adequação do Imóvel (1.200m²)</td><td class="value-cell">R$ 1.000.000</td></tr>
-                        <tr class="fragment"><td>Aquisição de Equipamentos (Grande Porte)</td><td class="value-cell">R$ 800.000</td></tr>
-                        <tr class="fragment"><td>Mobiliário e TI</td><td class="value-cell">R$ 76.500</td></tr>
-                        <tr class="fragment"><td>Marketing de Lançamento</td><td class="value-cell">R$ 20.000</td></tr>
-                        <tr class="fragment"><td>Formalização da Empresa</td><td class="value-cell">R$ 3.500</td></tr>
-                        <tr class="fragment"><td style="font-weight: bold;">Subtotal (Investimento Fixo)</td><td class="value-cell">R$ 1.900.000</td></tr>
-                        <tr class="fragment"><td>Capital de Giro Inicial</td><td class="value-cell">R$ 200.000</td></tr>
-                        <tr class="total-row fragment"><td>TOTAL DO INVESTIMENTO</td><td class="value-cell">R$ 2.100.000</td></tr>
-                    </table>
-                </div>
-            </section>
-             <section>
-                <h2><span class="highlight">3.</span> Financeiro (Parte I)</h2>
-                <h3>OPEX: Custos Operacionais Mensais</h3>
-                <div class="flex-container">
+                <div class="slide-content">
+                    <h2><span class="highlight">3.</span> Financeiro (Parte I)</h2>
+                    <h3>CAPEX: Investimento Inicial Detalhado</h3>
                     <div class="glass-card">
-                        <h4>Custos Fixos</h4>
                         <table>
-                            <tr><td>Custo de Ocupação (Aluguel)</td><td class="value-cell">R$ 35.000</td></tr>
-                            <tr><td>Folha de Pagamento + Encargos</td><td class="value-cell">R$ 51.910</td></tr>
-                            <tr><td>Utilities (Energia e Água)</td><td class="value-cell">R$ 8.000</td></tr>
-                            <tr><td>Pró-labore (1 sócio)</td><td class="value-cell">R$ 4.000</td></tr>
-                            <tr><td>Marketing Contínuo</td><td class="value-cell">R$ 4.000</td></tr>
-                            <tr><td>Contabilidade e Software</td><td class="value-cell">R$ 1.500</td></tr>
-                            <tr><td>Telecomunicações</td><td class="value-cell">R$ 400</td></tr>
-                            <tr class="total-row"><td>Total Custos Fixos</td><td class="value-cell">R$ 104.810</td></tr>
+                            <tr class="fragment"><td>Reforma e Adequação do Imóvel (1.200m²)</td><td class="value-cell">R$ 1.000.000</td></tr>
+                            <tr class="fragment"><td>Aquisição de Equipamentos (Grande Porte)</td><td class="value-cell">R$ 800.000</td></tr>
+                            <tr class="fragment"><td>Mobiliário e TI</td><td class="value-cell">R$ 76.500</td></tr>
+                            <tr class="fragment"><td>Marketing de Lançamento</td><td class="value-cell">R$ 20.000</td></tr>
+                            <tr class="fragment"><td>Formalização da Empresa</td><td class="value-cell">R$ 3.500</td></tr>
+                            <tr class="fragment"><td style="font-weight: bold;">Subtotal (Investimento Fixo)</td><td class="value-cell">R$ 1.900.000</td></tr>
+                            <tr class="fragment"><td>Capital de Giro Inicial</td><td class="value-cell">R$ 200.000</td></tr>
+                            <tr class="total-row fragment"><td>TOTAL DO INVESTIMENTO</td><td class="value-cell">R$ 2.100.000</td></tr>
                         </table>
                     </div>
-                    <div class="glass-card">
-                        <h4>Custos Variáveis</h4>
-                        <p style="font-size: 0.8em;">Despesas que variam com o faturamento e número de alunos.</p>
-                        <ul style="font-size: 0.8em;">
-                            <li class="fragment"><span class="highlight">Impostos:</span> Simples Nacional (~6%)</li>
-                            <li class="fragment"><span class="highlight">Materiais:</span> Limpeza, etc. (~R$ 2.200)</li>
-                            <li class="fragment"><span class="highlight">Manutenção:</span> Equipamentos (~R$ 1.650)</li>
-                        </ul>
+                </div>
+            </section>
+             <section>
+                <div class="slide-content">
+                    <h2><span class="highlight">3.</span> Financeiro (Parte I)</h2>
+                    <h3>OPEX: Custos Operacionais Mensais</h3>
+                    <div class="flex-container">
+                        <div class="glass-card">
+                            <h4>Custos Fixos</h4>
+                            <table>
+                                <tr><td>Custo de Ocupação (Aluguel)</td><td class="value-cell">R$ 35.000</td></tr>
+                                <tr><td>Folha de Pagamento + Encargos</td><td class="value-cell">R$ 51.910</td></tr>
+                                <tr><td>Utilities (Energia e Água)</td><td class="value-cell">R$ 8.000</td></tr>
+                                <tr><td>Pró-labore (1 sócio)</td><td class="value-cell">R$ 4.000</td></tr>
+                                <tr><td>Marketing Contínuo</td><td class="value-cell">R$ 4.000</td></tr>
+                                <tr><td>Contabilidade e Software</td><td class="value-cell">R$ 1.500</td></tr>
+                                <tr><td>Telecomunicações</td><td class="value-cell">R$ 400</td></tr>
+                                <tr class="total-row"><td>Total Custos Fixos</td><td class="value-cell">R$ 104.810</td></tr>
+                            </table>
+                        </div>
+                        <div class="glass-card">
+                            <h4>Custos Variáveis</h4>
+                            <p style="font-size: 0.8em;">Despesas que variam com o faturamento e número de alunos.</p>
+                            <ul style="font-size: 0.8em;">
+                                <li class="fragment"><span class="highlight">Impostos:</span> Simples Nacional (~6%)</li>
+                                <li class="fragment"><span class="highlight">Materiais:</span> Limpeza, etc. (~R$ 2.200)</li>
+                                <li class="fragment"><span class="highlight">Manutenção:</span> Equipamentos (~R$ 1.650)</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </section>
              <section>
-                <h2><span class="highlight">3.</span> Financeiro (Parte I)</h2>
-                <h3>Estrutura de Pessoal e Custos</h3>
-                 <div class="glass-card">
-                     <h4>Investimento Mensal em Capital Humano (Salário + Encargos)</h4>
-                     <table>
-                         <thead><tr><th>Área Funcional</th><th>Nº de Colaboradores</th><th>Custo Mensal Agregado</th></tr></thead>
-                         <tbody>
-                             <tr class="fragment"><td>Equipe Técnica (Educadores Físicos e Nutricionistas)</td><td>9</td><td class="value-cell">R$ 34.580</td></tr>
-                             <tr class="fragment"><td>Atendimento e Gestão (Gerência e Recepção)</td><td>4</td><td class="value-cell">R$ 13.650</td></tr>
-                             <tr class="fragment"><td>Operacional (Limpeza)</td><td>2</td><td class="value-cell">R$ 3.680</td></tr>
-                             <tr class="total-row fragment"><td>TOTAL</td><td>15</td><td class="value-cell">R$ 51.910</td></tr>
-                         </tbody>
-                     </table>
-                 </div>
+                 <div class="slide-content">
+                    <h2><span class="highlight">3.</span> Financeiro (Parte I)</h2>
+                    <h3>Estrutura de Pessoal e Custos</h3>
+                    <div class="glass-card">
+                        <h4>Investimento Mensal em Capital Humano (Salário + Encargos)</h4>
+                        <table>
+                            <thead><tr><th>Área Funcional</th><th>Nº de Colaboradores</th><th>Custo Mensal Agregado</th></tr></thead>
+                            <tbody>
+                                <tr class="fragment"><td>Equipe Técnica (Educadores Físicos e Nutricionistas)</td><td>9</td><td class="value-cell">R$ 34.580</td></tr>
+                                <tr class="fragment"><td>Atendimento e Gestão (Gerência e Recepção)</td><td>4</td><td class="value-cell">R$ 13.650</td></tr>
+                                <tr class="fragment"><td>Operacional (Limpeza)</td><td>2</td><td class="value-cell">R$ 3.680</td></tr>
+                                <tr class="total-row fragment"><td>TOTAL</td><td>15</td><td class="value-cell">R$ 51.910</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </section>
             
              <!-- Parte 4: Financeiro II -->
             <section>
-                <h2><span class="highlight">4.</span> Financeiro (Parte II)</h2>
-                <h3>Estratégia de Precificação e Planos</h3>
-                 <div class="flex-container">
-                    <div class="glass-card fragment">
-                        <h4>Plano Fitness</h4>
-                        <p>Preço: <span class="highlight">R$ 100/mês</span></p>
-                        <p>Acesso à musculação com treino personalizado. Foco em ser competitivo com entrega superior.</p>
-                    </div>
-                    <div class="glass-card fragment">
-                        <h4>Plano Pro</h4>
-                        <p>Preço: <span class="highlight">R$ 140/mês</span></p>
-                         <p>Proposta de Valor Única: inclui benefícios do Fitness + acompanhamento nutricional.</p>
-                    </div>
-                </div>
-            </section>
-            <section>
-                <h2><span class="highlight">4.</span> Financeiro (Parte II)</h2>
-                <h3>Modelo de Receita e Projeções</h3>
-                <div class="flex-container">
-                    <div class="glass-card fragment">
-                        <h4>Ticket Médio</h4>
-                        <p>(60% * 100) + (40% * 140)</p>
-                        <span class="kpi">R$ 116,00</span>
-                    </div>
-                    <div class="glass-card fragment">
-                        <h4>Meta de Alunos</h4>
-                        <p>(Cenário Realista)</p>
-                        <span class="kpi">1.800</span>
-                    </div>
-                    <div class="glass-card fragment">
-                        <h4>Faturamento Mensal</h4>
-                        <p>1.800 * R$ 116,00</p>
-                        <span class="kpi">R$ 208.800</span>
+                 <div class="slide-content">
+                    <h2><span class="highlight">4.</span> Financeiro (Parte II)</h2>
+                    <h3>Estratégia de Precificação e Planos</h3>
+                    <div class="flex-container">
+                        <div class="glass-card fragment">
+                            <h4>Plano Fitness</h4>
+                            <p>Preço: <span class="highlight">R$ 100/mês</span></p>
+                            <p>Acesso à musculação com treino personalizado. Foco em ser competitivo com entrega superior.</p>
+                        </div>
+                        <div class="glass-card fragment">
+                            <h4>Plano Pro</h4>
+                            <p>Preço: <span class="highlight">R$ 140/mês</span></p>
+                            <p>Proposta de Valor Única: inclui benefícios do Fitness + acompanhamento nutricional.</p>
+                        </div>
                     </div>
                 </div>
             </section>
             <section>
-                <h2><span class="highlight">4.</span> Financeiro (Parte II)</h2>
-                <h3>Análise de Ponto de Equilíbrio (Break-Even)</h3>
-                <div class="glass-card">
-                    <h4>Ponto de Equilíbrio em Faturamento (PEF)</h4>
-                    <div class="formula-box">PEF = (Custos Fixos + Outros Variáveis) / (1 - % Impostos)<br>PEF = (104.810 + 3.850) / (1 - 0.06) = <span class="highlight">R$ 115.596</span></div>
-                </div>
-                <div class="glass-card fragment">
-                    <h4>Ponto de Equilíbrio em Alunos (PEA)</h4>
-                     <div class="formula-box">PEA = PEF / Ticket Médio<br>PEA = 115.596 / 116 ≈ <span class="highlight">997 Alunos</span></div>
-                </div>
-            </section>
-            <section>
-                <h2><span class="highlight">4.</span> Financeiro (Parte II)</h2>
-                <h3>Análise de Cenários de Lucratividade</h3>
-                <div class="glass-card">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Métrica</th>
-                                <th>Ponto de Equilíbrio</th>
-                                <th>Cenário Realista</th>
-                                <th>Cenário Otimista</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="fragment"><td>Nº de Alunos</td><td class="value-cell">997</td><td class="value-cell highlight-value">1.800</td><td class="value-cell">2.200</td></tr>
-                            <tr class="fragment"><td>Faturamento Bruto Mensal</td><td class="value-cell">R$ 115.596</td><td class="value-cell highlight-value">R$ 208.800</td><td class="value-cell">R$ 255.200</td></tr>
-                            <tr class="fragment"><td>Custos Totais Mensais</td><td class="value-cell">R$ 115.596</td><td class="value-cell highlight-value">R$ 121.188</td><td class="value-cell">R$ 123.972</td></tr>
-                            <tr class="fragment"><td>Lucro Líquido Mensal</td><td class="value-cell">R$ 0</td><td class="value-cell highlight-value">R$ 87.612</td><td class="value-cell">R$ 131.228</td></tr>
-                            <tr class="fragment"><td>Margem de Lucro Líquida</td><td class="value-cell">0%</td><td class="value-cell highlight-value">42,0%</td><td class="value-cell">51,4%</td></tr>
-                        </tbody>
-                    </table>
+                 <div class="slide-content">
+                    <h2><span class="highlight">4.</span> Financeiro (Parte II)</h2>
+                    <h3>Modelo de Receita e Projeções</h3>
+                    <div class="flex-container">
+                        <div class="glass-card fragment">
+                            <h4>Ticket Médio</h4>
+                            <p>(60% * 100) + (40% * 140)</p>
+                            <span class="kpi">R$ 116,00</span>
+                        </div>
+                        <div class="glass-card fragment">
+                            <h4>Meta de Alunos</h4>
+                            <p>(Cenário Realista)</p>
+                            <span class="kpi">1.800</span>
+                        </div>
+                        <div class="glass-card fragment">
+                            <h4>Faturamento Mensal</h4>
+                            <p>1.800 * R$ 116,00</p>
+                            <span class="kpi">R$ 208.800</span>
+                        </div>
+                    </div>
                 </div>
             </section>
             <section>
-                <h2><span class="highlight">4.</span> Financeiro (Parte II)</h2>
-                <h3>Indicadores Chave de Viabilidade</h3>
-                <div class="flex-container">
-                    <div class="glass-card fragment">
-                         <h4>Lucratividade</h4>
-                         <p>(Cenário com 1.800 alunos)</p>
-                         <p>Lucro Líquido: <span class="kpi" style="font-size: 1.5em">R$ 87.612/mês</span></p>
-                         <p>Margem Líquida: <span class="kpi" style="font-size: 1.5em">42%</span></p>
+                 <div class="slide-content">
+                    <h2><span class="highlight">4.</span> Financeiro (Parte II)</h2>
+                    <h3>Análise de Ponto de Equilíbrio (Break-Even)</h3>
+                    <div class="glass-card">
+                        <h4>Ponto de Equilíbrio em Faturamento (PEF)</h4>
+                        <div class="formula-box">PEF = (Custos Fixos + Outros Variáveis) / (1 - % Impostos)<br>PEF = (104.810 + 3.850) / (1 - 0.06) = <span class="highlight">R$ 115.596</span></div>
                     </div>
                     <div class="glass-card fragment">
-                        <h4>Payback</h4>
-                        <p>(Retorno do Investimento)</p>
-                         <div class="formula-box" style="font-size: 0.6em">Payback = Invest. Inicial / Lucro Líquido Anual<br>Payback = 2.100.000 / (87.612 * 12)</div>
-                         <span class="kpi">~2 Anos</span>
+                        <h4>Ponto de Equilíbrio em Alunos (PEA)</h4>
+                        <div class="formula-box">PEA = PEF / Ticket Médio<br>PEA = 115.596 / 116 ≈ <span class="highlight">997 Alunos</span></div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                 <div class="slide-content">
+                    <h2><span class="highlight">4.</span> Financeiro (Parte II)</h2>
+                    <h3>Análise de Cenários de Lucratividade</h3>
+                    <div class="glass-card">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Métrica</th>
+                                    <th>Ponto de Equilíbrio</th>
+                                    <th>Cenário Realista</th>
+                                    <th>Cenário Otimista</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="fragment"><td>Nº de Alunos</td><td class="value-cell">997</td><td class="value-cell highlight-value">1.800</td><td class="value-cell">2.200</td></tr>
+                                <tr class="fragment"><td>Faturamento Bruto Mensal</td><td class="value-cell">R$ 115.596</td><td class="value-cell highlight-value">R$ 208.800</td><td class="value-cell">R$ 255.200</td></tr>
+                                <tr class="fragment"><td>Custos Totais Mensais</td><td class="value-cell">R$ 115.596</td><td class="value-cell highlight-value">R$ 121.188</td><td class="value-cell">R$ 123.972</td></tr>
+                                <tr class="fragment"><td>Lucro Líquido Mensal</td><td class="value-cell">R$ 0</td><td class="value-cell highlight-value">R$ 87.612</td><td class="value-cell">R$ 131.228</td></tr>
+                                <tr class="fragment"><td>Margem de Lucro Líquida</td><td class="value-cell">0%</td><td class="value-cell highlight-value">42,0%</td><td class="value-cell">51,4%</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <section>
+                 <div class="slide-content">
+                    <h2><span class="highlight">4.</span> Financeiro (Parte II)</h2>
+                    <h3>Indicadores Chave de Viabilidade</h3>
+                    <div class="flex-container">
+                        <div class="glass-card fragment">
+                            <h4>Lucratividade</h4>
+                            <p>(Cenário com 1.800 alunos)</p>
+                            <p>Lucro Líquido: <span class="kpi" style="font-size: 1.5em">R$ 87.612/mês</span></p>
+                            <p>Margem Líquida: <span class="kpi" style="font-size: 1.5em">42%</span></p>
+                        </div>
+                        <div class="glass-card fragment">
+                            <h4>Payback</h4>
+                            <p>(Retorno do Investimento)</p>
+                            <div class="formula-box" style="font-size: 0.6em">Payback = Invest. Inicial / Lucro Líquido Anual<br>Payback = 2.100.000 / (87.612 * 12)</div>
+                            <span class="kpi">~2 Anos</span>
+                        </div>
                     </div>
                 </div>
             </section>
             
              <!-- Parte 5: Conclusão -->
             <section>
-                <h2><span class="highlight">5.</span> Conclusão</h2>
-                <h3>Fatores Críticos de Sucesso</h3>
-                 <div class="flex-container">
-                    <div class="glass-card fragment">
-                        <h4>Qualidade da Equipe</h4>
-                        <p>Contratar e reter profissionais com excelentes habilidades de comunicação é indispensável.</p>
-                    </div>
-                     <div class="glass-card fragment">
-                        <h4>Execução do Marketing</h4>
-                        <p>Atingir a meta de <span class="highlight">997 alunos</span> para o ponto de equilíbrio no menor tempo possível é determinante.</p>
-                    </div>
-                    <div class="glass-card fragment">
-                        <h4>Experiência do Cliente</h4>
-                        <p>A retenção de alunos dependerá da entrega consistente de <span class="highlight">resultados mensuráveis</span>.</p>
-                    </div>
-                </div>
-            </section>
-            <section>
-                <h2><span class="highlight">5.</span> Conclusão</h2>
-                <h3>Análise de Riscos e Mitigação</h3>
-                 <div class="flex-container">
-                    <div class="glass-card fragment">
-                        <h4>Risco de Mercado</h4>
-                        <p><span class="highlight">Ameaça:</span> Reação da concorrência.<br><span class="highlight">Mitigação:</span> Foco na personalização e comunidade.</p>
-                    </div>
-                     <div class="glass-card fragment">
-                        <h4>Risco Operacional</h4>
-                        <p><span class="highlight">Ameaça:</span> Dificuldade em reter equipe.<br><span class="highlight">Mitigação:</span> Remuneração competitiva.</p>
-                    </div>
-                    <div class="glass-card fragment">
-                        <h4>Risco Financeiro</h4>
-                        <p><span class="highlight">Ameaça:</span> Aquisição lenta de clientes.<br><span class="highlight">Mitigação:</span> Controle de orçamento e marketing ágil.</p>
+                 <div class="slide-content">
+                    <h2><span class="highlight">5.</span> Conclusão</h2>
+                    <h3>Fatores Críticos de Sucesso</h3>
+                    <div class="flex-container">
+                        <div class="glass-card fragment">
+                            <h4>Qualidade da Equipe</h4>
+                            <p>Contratar e reter profissionais com excelentes habilidades de comunicação é indispensável.</p>
+                        </div>
+                        <div class="glass-card fragment">
+                            <h4>Execução do Marketing</h4>
+                            <p>Atingir a meta de <span class="highlight">997 alunos</span> para o ponto de equilíbrio no menor tempo possível é determinante.</p>
+                        </div>
+                        <div class="glass-card fragment">
+                            <h4>Experiência do Cliente</h4>
+                            <p>A retenção de alunos dependerá da entrega consistente de <span class="highlight">resultados mensuráveis</span>.</p>
+                        </div>
                     </div>
                 </div>
             </section>
             <section>
-                <h2><span class="highlight">5.</span> Conclusão</h2>
-                <h3>Visão de Longo Prazo e Crescimento</h3>
-                 <div class="flex-container">
-                    <div class="glass-card fragment">
-                        <h4>Expansão de Serviços</h4>
-                        <p>Aulas em grupo, loja de suplementos, produtos de marca própria.</p>
-                    </div>
-                     <div class="glass-card fragment">
-                        <h4>Expansão Geográfica</h4>
-                        <p>Abertura de uma <span class="highlight">segunda unidade</span> em Sobral ou cidades vizinhas.</p>
-                    </div>
-                    <div class="glass-card fragment">
-                        <h4>Plataforma Online</h4>
-                        <p>Desenvolvimento de um serviço de <span class="highlight">consultoria online</span> para escalar o conhecimento.</p>
+                 <div class="slide-content">
+                    <h2><span class="highlight">5.</span> Conclusão</h2>
+                    <h3>Análise de Riscos e Mitigação</h3>
+                    <div class="flex-container">
+                        <div class="glass-card fragment">
+                            <h4>Risco de Mercado</h4>
+                            <p><span class="highlight">Ameaça:</span> Reação da concorrência.<br><span class="highlight">Mitigação:</span> Foco na personalização e comunidade.</p>
+                        </div>
+                        <div class="glass-card fragment">
+                            <h4>Risco Operacional</h4>
+                            <p><span class="highlight">Ameaça:</span> Dificuldade em reter equipe.<br><span class="highlight">Mitigação:</span> Remuneração competitiva.</p>
+                        </div>
+                        <div class="glass-card fragment">
+                            <h4>Risco Financeiro</h4>
+                            <p><span class="highlight">Ameaça:</span> Aquisição lenta de clientes.<br><span class="highlight">Mitigação:</span> Controle de orçamento e marketing ágil.</p>
+                        </div>
                     </div>
                 </div>
             </section>
-            <section data-transition="zoom">
-                <h1>Obrigado.</h1>
-                <h2 class="highlight">Perguntas?</h2>
+            <section>
+                 <div class="slide-content">
+                    <h2><span class="highlight">5.</span> Conclusão</h2>
+                    <h3>Visão de Longo Prazo e Crescimento</h3>
+                    <div class="flex-container">
+                        <div class="glass-card fragment">
+                            <h4>Expansão de Serviços</h4>
+                            <p>Aulas em grupo, loja de suplementos, produtos de marca própria.</p>
+                        </div>
+                        <div class="glass-card fragment">
+                            <h4>Expansão Geográfica</h4>
+                            <p>Abertura de uma <span class="highlight">segunda unidade</span> em Sobral ou cidades vizinhas.</p>
+                        </div>
+                        <div class="glass-card fragment">
+                            <h4>Plataforma Online</h4>
+                            <p>Desenvolvimento de um serviço de <span class="highlight">consultoria online</span> para escalar o conhecimento.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide Final de Impacto -->
+            <section data-transition="zoom" class="impact-title-slide">
+                 <div class="impact-content">
+                    <h1>Obrigado.</h1>
+                    <div class="divider"></div>
+                    <h2 class="highlight" style="font-size: 1.5em; font-weight: 700;">Perguntas?</h2>
+                </div>
             </section>
 
         </div>
